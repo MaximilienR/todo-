@@ -1,21 +1,38 @@
-function addTask(){
-    let taskInput=document.getElementById("taskInput");
-    let taskList=document.getElementById("taskList")
+function addTask() {
+    let taskInput = document.getElementById("taskInput");
+    let taskList = document.getElementById("taskList");
 
-    let task=document.createElement("li");
-    task.textContent=taskInput.value; 
+    let task = document.createElement("li");
+    task.textContent = taskInput.value;
     taskList.appendChild(task);
 
-    taskInput.value="";
-
-    let deleteButton=document.createElement("button");
-    deleteButton.textContent="Suppr";
-    deleteButton.onclick=function(){
-        task.parentNode.removeChild(task);
-
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Suppr";
+    deleteButton.onclick = function() {
+            task.parentNode.removeChild(task);
     }
-    task.appendChild(deleteButton)
-    taskList.appendChild(task)
 
-    taskInput.value="";
+    let updateButton = document.createElement("button");
+    updateButton.textContent = "Modifier";
+    updateButton.onclick = function() {
+            editTask(task);
+    }
+
+    task.appendChild(deleteButton);
+    if (!task.classList.contains("editing")) {
+            task.appendChild(updateButton);
+    }
+
+    taskList.appendChild(task);
+
+    taskInput.value = "";
+
+    function editTask(task) {
+            let newTask = prompt("Modifier la tâche:", task.textContent);
+            if (newTask !== null) {
+                    task.textContent = newTask;
+                    task.classList.add("editing");
+                    task.removeChild(task.lastChild); // Supprimer l'ancien bouton de mise à jour
+            }
+    }
 }
