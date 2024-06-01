@@ -3,8 +3,10 @@ function addTask() {
     let taskList = document.getElementById("taskList");
 
     let task = document.createElement("li");
-    task.textContent = taskInput.value;
-    taskList.appendChild(task);
+
+    let taskText=document.createElement("span")
+    taskText.textContent = taskInput.value;
+    task.appendChild(taskText);
 
     let deleteButton = document.createElement("button");
     deleteButton.textContent = "Suppr";
@@ -27,12 +29,13 @@ function addTask() {
 
     taskInput.value = "";
 
+
     function editTask(task) {
-            let newTask = prompt("Modifier la tâche:", task.textContent);
-            if (newTask !== null) {
-                    task.textContent = newTask;
-                    task.classList.add("editing");
-                    task.removeChild(task.lastChild); // Supprimer l'ancien bouton de mise à jour
-            }
-    }
-}
+        let newTask = prompt("Modifier la tâche:", taskText.textContent);
+        if (newTask !== null) {
+                taskText.textContent = newTask;
+                task.classList.remove("editing");
+                task.appendChild(deleteButton);
+                task.appendChild(updateButton);
+        }
+}}
